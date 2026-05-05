@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { AppCard } from "@/components/ui/AppCard";
 import { ModulePage } from "../_components/ModulePage";
+import { useProfessionalProfile } from "../_lib/hooks/useProfessionalProfile";
 
 type ChatMessage = {
   id: string;
@@ -118,9 +119,14 @@ const initialThreads: Thread[] = [
 ];
 
 export default function MensajesPage() {
+  const { profile } = useProfessionalProfile();
   const [threads, setThreads] = useState<Thread[]>(initialThreads);
   const [selectedThreadId, setSelectedThreadId] = useState(initialThreads[0]?.id ?? "");
   const [draftMessage, setDraftMessage] = useState("");
+
+  const canSeeHardcodedMessages = profile.puesto
+    .toLowerCase()
+    .includes("newen");
 
   const selectedThread = useMemo(
     () => threads.find((thread) => thread.id === selectedThreadId) ?? null,
@@ -163,6 +169,7 @@ export default function MensajesPage() {
       title="Mensajes"
       subtitle="Conversaciones privadas para colaboraciones de alto impacto."
     >
+      {canSeeHardcodedMessages ? (
       <AppCard className="p-3 sm:p-4">
         <div className="mb-3 flex items-center justify-between gap-3 px-2 sm:px-1">
           <h2 className="font-[family-name:var(--font-spectral)] text-xl font-semibold text-slate-900">
@@ -290,6 +297,16 @@ export default function MensajesPage() {
           </section>
         </div>
       </AppCard>
+      ) : (
+        <AppCard className="p-5 sm:p-6">
+          <h2 className="font-[family-name:var(--font-spectral)] text-xl font-semibold text-slate-900">
+            Aun no tienes mensajes
+          </h2>
+          <p className="mt-2 text-sm text-slate-600">
+            Tu bandeja esta vacia por el momento.
+          </p>
+        </AppCard>
+      )}
 
       <AppCard className="p-5">
         <p className="text-sm font-medium text-[var(--brand-700)]">

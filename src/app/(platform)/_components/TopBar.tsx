@@ -5,6 +5,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { NavItem } from "../_lib/constants";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const logoSrc = `${basePath}/mensa-empresarios-logo.svg`;
+
 type TopBarProps = {
   navItems: NavItem[];
 };
@@ -25,7 +28,7 @@ export function TopBar({ navItems }: TopBarProps) {
       <div className="mx-auto flex h-14 w-full max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2 rounded-md px-1 py-1 transition hover:bg-slate-100/70">
           <Image
-            src="/mensa-empresarios-logo.svg"
+            src={logoSrc}
             alt="Logo Mensa Empresarios"
             width={34}
             height={34}
