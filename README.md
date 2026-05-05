@@ -29,8 +29,31 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Deploy on GitHub Pages
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is configured for GitHub Pages static deployment.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Included configuration
+
+- `next.config.ts`
+	- `output: "export"`
+	- `trailingSlash: true`
+	- `images.unoptimized: true` (required for static export + `next/image`)
+	- `basePath` and `assetPrefix` from `NEXT_PUBLIC_BASE_PATH`
+- `.github/workflows/deploy.yml`
+	- Builds and exports the app to `out/`
+	- Uploads artifact and deploys via GitHub Pages Actions
+	- Uses `NEXT_PUBLIC_BASE_PATH=/mensa-empresarios`
+
+### One-time GitHub repository setting
+
+In your GitHub repository:
+
+1. Go to `Settings` -> `Pages`.
+2. In `Build and deployment`, set `Source` to `GitHub Actions`.
+
+After that, every push to `main` triggers deployment.
+
+Your app will be available at:
+
+- `https://newen-ai.github.io/mensa-empresarios/`

@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Sora, Spectral } from "next/font/google";
 import "./globals.css";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const withBasePath = (path: string) => `${basePath}${path}`;
+
 const sora = Sora({
   variable: "--font-sora",
   subsets: ["latin"],
@@ -18,9 +21,9 @@ export const metadata: Metadata = {
   description:
     "Red profesional de Mensa Argentina para construir perfiles y mostrar experiencia laboral.",
   icons: {
-    icon: "/mensa-empresarios-logo.svg",
-    shortcut: "/mensa-empresarios-logo.svg",
-    apple: "/mensa-empresarios-logo.svg",
+    icon: withBasePath("/mensa-empresarios-logo.svg"),
+    shortcut: withBasePath("/mensa-empresarios-logo.svg"),
+    apple: withBasePath("/mensa-empresarios-logo.svg"),
   },
 };
 
